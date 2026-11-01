@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [1.0.0] - 2026-11-01
 
 ### Added
 - `ScottUk::Cinema.all` and `ScottUk::Cinema.new(id)` for Scott Cinemas' six venues, keyed by feed code, with names, addresses and feed codes from the website's cinema and API pages and coordinates from its cinema finder.
