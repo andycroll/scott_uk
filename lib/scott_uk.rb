@@ -5,7 +5,6 @@ require 'cinebase'
 
 require_relative './scott_uk/version'
 
-require_relative './scott_uk/internal/http'
 require_relative './scott_uk/internal/feed'
 require_relative './scott_uk/internal/title_sanitizer'
 require_relative './scott_uk/internal/parser/showtime'

@@ -24,8 +24,6 @@ module ScottUk
     #   @option options [String] :language (nil) audio language, e.g. 'Hindi'
     #   @option options [Time] :starting_at listed start time of the performance
 
-    TIME_ZONE = 'Europe/London'.freeze
-
     # Performances within an inclusive range of showing dates, from one
     # request: the venue's feed holds every advertised date.
     # @param [String] cinema_id the cinema's feed code, e.g. 'SCOBAR'
@@ -34,7 +32,7 @@ module ScottUk
     # @return [Array<ScottUk::Performance>]
     def self.at(
       cinema_id,
-      from: TZInfo::Timezone.get(TIME_ZONE).now.to_date,
+      from: Cinebase::London.today,
       to: from + 13
     )
       raise ArgumentError, 'to must not precede from' if to < from
@@ -68,7 +66,7 @@ module ScottUk
     def self.showtimes_between(feed, from, to)
       films = Hash(feed['films'])
       Hash(feed['schedule']).flat_map do |midnight, screens|
-        if (from..to).cover?(london_date(midnight))
+        if (from..to).cover?(Cinebase::London.date(Time.at(midnight.to_i)))
           Hash(screens).values.flat_map do |showtimes|
             Hash(showtimes).filter_map do |timestamp, showtime|
               film = films[showtime['film_id']]
@@ -81,10 +79,5 @@ module ScottUk
       end
     end
     private_class_method :showtimes_between
-
-    def self.london_date(timestamp)
-      TZInfo::Timezone.get(TIME_ZONE).to_local(Time.at(timestamp.to_i).utc).to_date
-    end
-    private_class_method :london_date
   end
 end
