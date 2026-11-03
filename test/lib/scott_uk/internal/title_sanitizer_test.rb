@@ -3,8 +3,10 @@ require_relative '../../../test_helper'
 class ScottUk::Internal::TitleSanitizerTest < Minitest::Test
   def test_plain_titles_are_unchanged
     assert_sanitized 'Ghosts: The Possession of Button House', 'Ghosts: The Possession of Button House'
-    assert_sanitized "Andrew Lloyd Webber's Starlight Express - Live On Stage",
-                     "Andrew Lloyd Webber's Starlight Express - Live On Stage"
+  end
+
+  def test_live_on_stage_suffix
+    assert_sanitized "Andrew Lloyd Webber's Starlight Express", "Andrew Lloyd Webber's Starlight Express - Live On Stage"
   end
 
   def test_parent_and_baby_suffix
@@ -14,7 +16,7 @@ class ScottUk::Internal::TitleSanitizerTest < Minitest::Test
 
   def test_exmouth_film_festival_suffix
     assert_sanitized 'The Ballad of Wallis Island', 'The Ballad of Wallis Island (Exmouth Film Festival)'
-    assert_sanitized 'DEREK VS DEREK', 'DEREK VS DEREK - EXMOUTH FILM FESTIVAL'
+    assert_sanitized 'Derek vs Derek', 'DEREK VS DEREK - EXMOUTH FILM FESTIVAL'
     assert_sanitized 'Rose of Nevada', 'Rose of Nevada - Exmouth Film Festival'
   end
 
@@ -23,11 +25,11 @@ class ScottUk::Internal::TitleSanitizerTest < Minitest::Test
   end
 
   def test_royal_ballet_and_opera
-    assert_sanitized 'Royal Ballet and Opera: THE NUTCRACKER', 'RBO 26-27: THE NUTCRACKER'
+    assert_sanitized 'Royal Ballet and Opera: The Nutcracker', 'RBO 26-27: THE NUTCRACKER'
   end
 
   def test_national_theatre_live
-    assert_sanitized 'National Theatre Live: HAY FEVER', 'NATIONAL THEATRE LIVE: HAY FEVER'
+    assert_sanitized 'National Theatre Live: Hay Fever', 'NATIONAL THEATRE LIVE: HAY FEVER'
   end
 
   def test_film_years
