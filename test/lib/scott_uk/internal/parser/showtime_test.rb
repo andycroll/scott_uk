@@ -38,6 +38,14 @@ class ScottUk::Internal::Parser::ShowtimeTest < Minitest::Test
     assert_equal %w(relaxed), parse({ 'flags' => ['AFS'], 'AFS' => 'Y' }, 'Ghosts')[:variant]
   end
 
+  def test_performances_read_audience_labels_from_the_title
+    parsed = parse({}, 'Ghosts (Parent and Baby Only Show)')
+    performance = ScottUk::Performance.new(parsed.merge(cinema_id: 'SCOEXM', cinema_name: 'Exmouth'))
+
+    assert_equal 'Ghosts', performance.film_name
+    assert_equal %w(baby), performance.variant
+  end
+
   private
 
   def parse(showtime, title)

@@ -50,7 +50,7 @@ class ScottUk::PerformanceTest < Minitest::Test
   def test_summer_times_are_converted_to_utc
     performance = performances_at('SCOBWR').last
 
-    assert_equal 'Royal Ballet and Opera: ROMEO & JULIET', performance.film_name
+    assert_equal 'Romeo & Juliet', performance.film_name
     assert_equal Time.utc(2027, 5, 25, 18, 15), performance.starting_at
     assert_equal %w(arts), performance.variant
   end
@@ -80,7 +80,8 @@ class ScottUk::PerformanceTest < Minitest::Test
   def test_event_cinema_is_arts
     performance = find('74647')
 
-    assert_equal 'National Theatre Live: GOLDEN BOY', performance.film_name
+    assert_equal 'Golden Boy', performance.film_name
+    assert_equal 'National Theatre Live', performance.event.name
     assert_equal %w(arts), performance.variant
   end
 
