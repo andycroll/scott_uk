@@ -15,7 +15,7 @@ class ScottUk::Internal::Parser::ShowtimeTest < Minitest::Test
   end
 
   def test_festival_prefixes_shared_by_chains
-    assert_equal 'CFF', parse({}, 'CFF: Paddington')[:festival].name
+    assert_equal 'Cambridge Film Festival', parse({}, 'CFF: Paddington')[:festival].name
   end
 
   def test_three_d
